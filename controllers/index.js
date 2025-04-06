@@ -31,13 +31,23 @@ exports.getCar = (req, res) => {
 }
 
 exports.updateCar = (req, res) => {
+
+    const updateData = req.body
+    const updateCar = { ...req.car, ...updateData }
+
+    const index = cars.findIndex((car) => car.id == updateCar.id)
+
+    cars.splice(index, 1, updateCar)
+
+    write(cars)
+
     res.status(200).json({
-        message: 'Araç Güncellendi'
+        message: 'Araç Güncellendi',
+        car: updateCar
     })
 }
 
 exports.deleteCar = (req, res) => {
-
     res.status(204).json({
         message: 'Araç Silindi'
     })
