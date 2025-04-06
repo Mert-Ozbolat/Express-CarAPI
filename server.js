@@ -1,7 +1,6 @@
 const express = require('express')
-const { getAllCars, createCar, getCar, updateCar, deleteCar } = require('./controllers');
 const { logger } = require('./middleware');
-const idControl = require('./middleware/idControl');
+const carRoutes = require('./routes/carRoutes');
 
 const app = express();
 const PORT = 3000
@@ -21,8 +20,10 @@ app.use(express.json())
 // app.delete('/api/v1/cars:id', deleteCar)
 
 // * 2. Yol *//
-app.route('/api/v1/cars').get(getAllCars).post(createCar)
-app.route('/api/v1/cars/:id').get(idControl, getCar).patch(idControl, updateCar).delete(idControl, deleteCar)
+// app.route('/api/v1/cars').get(getAllCars).post(createCar)
+// app.route('/api/v1/cars/:id').get(idControl, getCar).patch(idControl, updateCar).delete(idControl, deleteCar)
+
+app.use(carRoutes())
 
 app.listen(PORT, () => {
     console.log(`Server ${PORT} portunda dinlemede`)
